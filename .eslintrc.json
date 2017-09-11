@@ -12,10 +12,8 @@
     "describe": true
   },
   "rules": {
-    // override default options
     "node/no-unsupported-features": "off",
 
-    // temporary options
     "no-console": "off",
     "no-unused-vars": "off"
   }
