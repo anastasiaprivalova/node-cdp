@@ -4,7 +4,7 @@
   "description": "Playground for NodeJS mentoring program",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "test": "node node_modules/mocha/bin/mocha",
     "lint": "eslint  ./"
   },
@@ -25,6 +25,7 @@
     "eslint": "^4.6.1",
     "eslint-plugin-node": "^5.1.1",
     "mocha": "^3.5.0",
+    "nodemon": "^1.12.0",
     "precommit-hook": "^3.0.0"
   },
   "pre-commit": [
