@@ -1,0 +1,34 @@
+{
+  "name": "node-cdp",
+  "version": "0.0.1",
+  "description": "Playground for NodeJS mentoring program",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node node_modules/mocha/bin/mocha",
+    "lint": "eslint  ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anastasiaprivalova/node-cdp"
+  },
+  "keywords": [
+    "NodeJS"
+  ],
+  "author": "Anastasiya Pryvalava",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "eslint": "^4.6.1",
+    "eslint-plugin-node": "^5.1.1",
+    "mocha": "^3.5.0",
+    "precommit-hook": "^3.0.0"
+  },
+  "pre-commit": [
+    "lint",
+    "test"
+  ]
+}
