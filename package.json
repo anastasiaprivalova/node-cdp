@@ -29,11 +29,17 @@
     "precommit-hook": "^3.0.0"
   },
   "nodemonConfig": {
-    "ignore": ["*.test.js"],
+    "ignore": [
+      "*.test.js"
+    ],
     "delay": "500"
   },
   "pre-commit": [
     "lint",
     "test"
-  ]
+  ],
+  "dependencies": {
+    "chokidar": "^1.7.0",
+    "csvtojson": "^1.1.8"
+  }
 }
