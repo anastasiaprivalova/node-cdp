@@ -83,7 +83,27 @@ class Importer {
   }
 
   importSync(path) {
+    const stringFromBuffer = Buffer.from(fs.readFileSync(path)).toString();
+    const valuesArray = stringFromBuffer.split('\n');
+    const csvSeparator = ',';
+    const headers = valuesArray[0].split(csvSeparator);
+    let resultingJSON = {
+      'data': []
+    };
+    let row, obj;
 
+    for(let i = 1; i < valuesArray.length; i++ ) {
+      row = valuesArray[i].split(csvSeparator);
+      obj = {};
+
+      headers.forEach((header, index) => {
+        obj[header] = row[index];
+      });
+
+      resultingJSON.data.push(obj);
+    }
+
+    return resultingJSON;
   }
 }
 
