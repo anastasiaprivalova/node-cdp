@@ -30,6 +30,7 @@
   },
   "nodemonConfig": {
     "ignore": [
+      "jsonData/*.json",
       "*.test.js"
     ],
     "delay": "500"

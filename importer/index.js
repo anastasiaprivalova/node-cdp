@@ -1,4 +1,5 @@
 const fs = require('fs');
+const pathLib = require('path');
 const csv = require('csvtojson');
 const dirwatcher = require('./../dirwatcher');
 
@@ -6,7 +7,10 @@ class Importer {
   constructor(dir, delay) {
     let index;
     let fullPath = __dirname + dir;
+    let jsonDir = 'jsonData';
     let eventEmitter = new dirwatcher().watch(fullPath, delay);
+
+    this.paths = [];
 
     let filePromise = new Promise((resolve, reject) => {
       fs.readdir(fullPath, (error, files) => {
@@ -20,46 +24,88 @@ class Importer {
 
     filePromise.then((files) => {
       let arrayOfPromises = files.map(file => {
-        return this.importAsync(fullPath + '/' + file);
+        return this.importAsync(pathLib.resolve(fullPath, file));
       });
+
       return Promise.all(arrayOfPromises);
     }).then(data => {
-      this.csvData = data;
+      data.forEach(file => {
+        this.paths.push(file.path);
+        writeJSON(file, jsonDir);
+      });
     }).catch(error => {
       console.error(error);
     });
 
-    this.csvData = [];
-
     eventEmitter.on('dirwatcher:changed', (event, path) => {
       switch(event) {
-
         case 'add':
+          // only for watchWithChokidar
           this.importAsync(path).then((result) => {
-            this.csvData.push(result);
-            console.dir(this.csvData);
-          }).catch((error) => {console.error(error);});
+            this.paths.push(path);
+            writeJSON(result, jsonDir);
+            console.log('ADDED:', path);
+          }).catch((error) => {
+            console.error(error);
+          });
           break;
 
         case 'change':
-          index = this.csvData.findIndex(element => element.path === path);
+          index = this.paths.indexOf(path);
 
           if(index !== -1) {
             this.importAsync(path).then((result) => {
-              this.csvData[index] = result;
-              console.dir(this.csvData);
-            }).catch((error) => {console.error(error);});
+              writeJSON(result, jsonDir);
+              console.log('CHANGED:', path);
+            }).catch((error) => {
+              console.error(error);
+            });
+          }
+
+          break;
+
+        case 'rename':
+          // only for watch with fs.watch
+          index = this.paths.indexOf(path);
+
+          if(index === -1) {
+            this.importAsync(path).then((result) => {
+              this.paths.push(path);
+              writeJSON(result, jsonDir);
+              console.log('ADDED:', path);
+            }).catch((error) => {
+              console.error(error);
+            });
+          } else {
+
+            if(fs.existsSync(path)) {
+              this.importAsync(path).then((result) => {
+                writeJSON(result, jsonDir);
+                console.log('CHANGED:', path);
+              }).catch((error) => {
+                console.error(error);
+              });
+            } else {
+              let tempData = this.paths;
+              this.paths = tempData.slice(0, index).concat(tempData.slice(index + 1));
+              let jsonPath = pathLib.resolve(fullPath, `../${jsonDir}`, `${pathLib.parse(path).name}.json`);
+
+              removeJSON(jsonPath);
+            }
           }
 
           break;
 
         case 'unlink':
-          index = this.csvData.findIndex(element => element.path === path);
+          // only for watchWithChokidar
+          index = this.paths.indexOf(path);
 
           if(index !== -1) {
-            let tempData = this.csvData;
-            this.csvData = tempData.slice(0, index).concat(tempData.slice(index + 1));
-            console.dir(this.csvData);
+            let tempData = this.paths;
+            this.paths = tempData.slice(0, index).concat(tempData.slice(index + 1));
+            let jsonPath = pathLib.resolve(fullPath, `../${jsonDir}`, `${pathLib.parse(path).name}.json`);
+
+            removeJSON(jsonPath);
           }
 
           break;
@@ -104,6 +150,27 @@ class Importer {
     }
 
     return resultingJSON;
+  }
+}
+
+function writeJSON(file, dirName) {
+  const jsonName = `${pathLib.parse(file.path).name}.json`;
+  let jsonFile;
+
+  if(!fs.existsSync(dirName)) {
+    fs.mkdir(dirName);
+  }
+
+  jsonFile = fs.createWriteStream(`${dirName}/${jsonName}`);
+  jsonFile.write(JSON.stringify(file.data));
+  jsonFile.end();
+}
+
+function removeJSON(jsonPath) {
+  if(fs.existsSync(jsonPath)) {
+    fs.unlink(jsonPath, () => {
+      console.log('REMOVED:', jsonPath);
+    });
   }
 }
 
