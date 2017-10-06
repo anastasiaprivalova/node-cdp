@@ -1,5 +1,5 @@
 const assert = require('assert');
-const data = require('./../config');
+const data = require('./../config/index');
 
 describe('Main module', () => {
   it('Should contain name equals to NodeMP HW App', () => {
