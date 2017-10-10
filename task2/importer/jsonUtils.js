@@ -45,7 +45,7 @@ function csvStringToJson(string, separator = ',') {
 }
 
 module.exports = {
-  writeJSON: writeJSON,
-  removeJSON: removeJSON,
-  csvStringToJson: csvStringToJson
+  writeJSON,
+  removeJSON,
+  csvStringToJson
 };

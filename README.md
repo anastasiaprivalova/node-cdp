@@ -14,7 +14,10 @@ To get bundle use
 ```
 npm start
 ```
-
+To path params for task 3 use for example
+```
+npm start [ -- -h]
+```
 To run test use
 ```
 npm test
