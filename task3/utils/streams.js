@@ -1,15 +1,45 @@
+const fs = require('fs');
+const path = require('path');
 const minimist = require('minimist');
+const through = require('through2');
 
 function inputOutput(filePath) {
-  console.log('Input Output: ', filePath);
+  const absolutePath = path.resolve(__dirname, filePath);
+
+  if(fs.existsSync(absolutePath)) {
+    const reader = fs.createReadStream(absolutePath);
+    reader.pipe(process.stdout);
+  } else {
+    console.error(`Not found ${absolutePath}`);
+  }
 }
 
 function transformFile(filePath, useOutput) {
-  console.log('Transform File: ', filePath, useOutput);
+  const absolutePath = path.resolve(__dirname, filePath);
+
+  if(fs.existsSync(absolutePath)) {
+    /*if(useOutput) {
+
+    } else {
+
+    }*/
+  } else {
+    console.error(`Not found ${absolutePath}`);
+  }
 }
 
 function transform() {
-  console.log('Transform');
+  const transformStream = through(write, end);
+  process.stdin.pipe(transformStream).pipe(process.stdout);
+
+  function write (buffer, encoding, next) {
+    this.push(buffer.toString().toUpperCase());
+    next();
+  }
+
+  function end (done) {
+    done();
+  }
 }
 
 function httpClient() {
