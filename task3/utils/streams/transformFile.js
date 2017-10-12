@@ -48,6 +48,7 @@ function transformFile(filePath, useOutput) {
       const parsedPath = path.parse(absolutePath);
       const dirPath = parsedPath.dir;
       const jsonName = parsedPath.name;
+
       writer = fs.createWriteStream(`${dirPath}/${jsonName}.json`);
       writer.write('{"data": [');
       reader.pipe(split()).pipe(transformStream).pipe(writer);
