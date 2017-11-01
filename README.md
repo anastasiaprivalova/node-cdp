@@ -18,6 +18,10 @@ To path params for task 3 use for example
 ```
 npm start [ -- -h]
 ```
+To start server from task 4 use for example
+```
+node task4/http-servers/html-server.js
+```
 To run test use
 ```
 npm test
