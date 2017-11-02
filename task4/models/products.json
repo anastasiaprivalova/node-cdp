@@ -1,0 +1,49 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "name": "ASUS ZENBOOK UX305FA",
+      "type": "notebook",
+      "reviews": [
+        {
+          "userId": "1",
+          "text": "Not bad"
+        },
+        {
+          "userId": "3",
+          "text": "Excellent"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Apple MacBook Pro 13.3'' (2017)",
+      "type": "notebook",
+      "reviews": [
+        {
+          "userId": "1",
+          "text": "Good"
+        },
+        {
+          "userId": "2",
+          "text": "Excellent"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Samsung Galaxy S8",
+      "type": "smartphone",
+      "reviews": [
+        {
+          "userId": "2",
+          "text": "Not bad"
+        },
+        {
+          "userId": "3",
+          "text": "Good"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "name": "Vasya",
+      "surname": "Ivanov",
+      "type": "admin"
+    },
+    {
+      "id": "2",
+      "name": "Fedor",
+      "surname": "Sidorov",
+      "type": "moderator"
+    },
+    {
+      "id": "3",
+      "name": "Sasha",
+      "surname": "Petrov",
+      "type": "user"
+    }
+  ]
+}
