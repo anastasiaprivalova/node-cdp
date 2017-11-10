@@ -1,7 +1,7 @@
 import express from 'express';
 import fs from 'fs';
 let router = express.Router();
-const filePath = './task4/models/products.json';
+const filePath = './task4_5/models/products.json';
 
 router.use(function(req, res, next) {
   let data = '';

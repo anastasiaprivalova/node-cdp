@@ -4,18 +4,24 @@
       "id": "1",
       "name": "Vasya",
       "surname": "Ivanov",
+      "email": "vasya_ivanov@epam.com",
+      "password": "Password12345",
       "type": "admin"
     },
     {
       "id": "2",
       "name": "Fedor",
       "surname": "Sidorov",
+      "email": "fedor_sidorov@gmail.com",
+      "password": "password",
       "type": "moderator"
     },
     {
       "id": "3",
       "name": "Sasha",
       "surname": "Petrov",
+      "email": "sasha_petrov@mail.ru",
+      "password": "12345",
       "type": "user"
     }
   ]
