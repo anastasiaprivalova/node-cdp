@@ -4,7 +4,7 @@ const fs = require('fs');
 http.createServer()
   .on('request', (req, res) => {
     const message = 'Hello from HTML';
-    const filePath = './task4/http-servers/index.html';
+    const filePath = './task4_5/http-servers/index.html';
     const strToReplace = '{message}';
 
     /*

@@ -1,7 +1,7 @@
 import express from 'express';
 let router = express.Router();
 import readHelper from './../helpers/readHelper';
-const filePath = './task4/models/users.json';
+const filePath = './task4_5/models/users.json';
 
 router.get('/', (req, res) => {
   readHelper(filePath, (data) => {
