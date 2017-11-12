@@ -1,15 +1,12 @@
 import express from 'express';
-import fs from 'fs';
 let router = express.Router();
+import readHelper from './../helpers/readHelper';
+const filePath = './task4/models/users.json';
 
 router.get('/', (req, res) => {
-  fs.createReadStream('./task4/models/users.json')
-    .on('data', (chunk) => {
-      res.write(Buffer.from(chunk).toString());
-    })
-    .on('end', () => {
-      res.end();
-    });
+  readHelper(filePath, (data) => {
+    res.json(data);
+  });
 });
 
 export default router;
