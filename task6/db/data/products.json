@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "productId": "1",
+      "name": "ASUS ZENBOOK UX305FA",
+      "type": "notebook"
+    },
+    {
+      "productId": "2",
+      "name": "Apple MacBook Pro 13.3'' (2017)",
+      "type": "notebook"
+    },
+    {
+      "productId": "3",
+      "name": "Samsung Galaxy S8",
+      "type": "smartphone"
+    }
+  ]
+}

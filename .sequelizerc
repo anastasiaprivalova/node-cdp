@@ -1,0 +1,8 @@
+const path = require('path');
+
+module.exports = {
+  'config': path.resolve('./task6/config', 'config.json'),
+  'models-path': path.resolve('./task6/db', 'models'),
+  'seeders-path': path.resolve('./task6/db', 'seeders'),
+  'migrations-path': path.resolve('./task6/db', 'migrations')
+}

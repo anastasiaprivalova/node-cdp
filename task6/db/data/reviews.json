@@ -1,0 +1,40 @@
+{
+  "data": [
+    {
+      "reviewId": "1",
+      "userId": "1",
+      "productId": "1",
+      "text": "Not bad"
+    },
+    {
+      "reviewId": "2",
+      "userId": "3",
+      "productId": "1",
+      "text": "Excellent"
+    },
+    {
+      "reviewId": "3",
+      "userId": "1",
+      "productId": "2",
+      "text": "Good"
+    },
+    {
+      "reviewId": "4",
+      "userId": "2",
+      "productId": "2",
+      "text": "Excellent"
+    },
+    {
+      "reviewId": "5",
+      "userId": "2",
+      "productId": "3",
+      "text": "Not bad"
+    },
+    {
+      "reviewId": "6",
+      "userId": "3",
+      "productId": "3",
+      "text": "Good"
+    }
+  ]
+}

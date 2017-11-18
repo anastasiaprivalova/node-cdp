@@ -1,14 +1,10 @@
 import express from 'express';
 const app = express();
-import session from 'express-session';
 import passport from 'passport';
-
-import { secretKey } from './config';
 
 import cookieParser from './middlewares/cookieParser';
 import queryParser from './middlewares/queryParser';
 import authChecker from './middlewares/authChecker';
-import isLoggedIn from './middlewares/isLoggedIn';
 
 import localStrategy from './authStrategies/localStrategy';
 
@@ -21,16 +17,8 @@ app.use(express.json());
 app.use(cookieParser);
 app.use(queryParser);
 
-//---Start of init session for passport, not needed for JWT
-app.use(session({
-  secret: secretKey,
-  resave: false,
-  saveUninitialized: false
-}));
-app.use(passport.initialize());
 localStrategy();
-app.use(passport.session());
-//---End of init session for passport
+app.use(passport.initialize());
 
 app.get('/', function (req, res) {
   console.log(req.parsedCookies, req.parsedQuery);
@@ -44,7 +32,7 @@ app.use('/auth-local', authLocalRouter);
 //app.use('/users', authChecker, usersRouter);
 
 //Auth with passport
-app.use('/products', isLoggedIn, productsRouter);
-app.use('/users', isLoggedIn, usersRouter);
+app.use('/products', passport.authenticate('bearer', { session: false }), productsRouter);
+app.use('/users', passport.authenticate('bearer', { session: false }), usersRouter);
 
 export default app;

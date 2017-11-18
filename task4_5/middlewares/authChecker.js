@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { secretKey } from './../config';
 
 export default function authChecker(req, res, next) {
-  let token = req.parsedCookies.accessToken;
+  let token = req.headers['x-access-token'];
 
   if(token) {
     jwt.verify(token, secretKey, (err, decoded) => {

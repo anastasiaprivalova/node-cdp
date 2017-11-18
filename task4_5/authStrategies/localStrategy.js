@@ -1,36 +1,36 @@
 import passport from 'passport';
-import { Strategy } from 'passport-local';
+import * as LocalStrategy from 'passport-local';
+import * as BearerStrategy from 'passport-http-bearer';
+import { errorMessages } from './../config';
 import getUserByEmail from '../helpers/getUserByEmail';
+import tokens from './../models/tokens.json';
 
 export default function localStrategy() {
-  let strategy = new Strategy({
+  passport.use(new LocalStrategy.Strategy({
     usernameField : 'email',
     passwordField : 'password',
+    session: false
   }, (username, password, done) => {
-    let notFoundCallback = () => done(new Error('User not found'), null);
-    let onSuccess = (user) => {
-      if(user.password === password) {
-        return done(null, user);
+    getUserByEmail(username)
+      .then((user) => {
+        if(user.password === password) {
+          return done(null, user);
+        } else {
+          done(null, false, errorMessages.NOT_FOUND);
+        }
+      })
+      .catch((error) => { done(null, false, error);});
+  }));
+
+  passport.use(new BearerStrategy.Strategy(
+    function (tokenRequested, done) {
+      let result = tokens.find(token => token.token === tokenRequested);
+
+      if (!result) {
+        done(null, false);
       } else {
-        notFoundCallback();
+        done(null, result, { scope: 'all' })
       }
-    };
-    let onError = () => done(new Error('Wrong input'), null);
-
-    getUserByEmail(username, onSuccess, onError, notFoundCallback);
-  });
-
-  passport.use('local', strategy);
-
-  passport.serializeUser(function(user, done) {
-    done(null, user.email);
-  });
-
-  passport.deserializeUser(function(email, done) {
-    let notFoundCallback = () => done(new Error('User not found'), null);
-    let onSuccess = user => done(null, user);
-    let onError = () => done(new Error('Wrong input'), null);
-
-    getUserByEmail(email, onSuccess, onError, notFoundCallback);
-  });
+    }
+  ));
 }
