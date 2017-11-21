@@ -1,10 +1,10 @@
 import express from 'express';
-import { getCities, addCity, updateCity, deleteCity } from './../db';
+import { cityApi } from './../db';
 
 let router = express.Router();
 
 router.get('/', (req, res) => {
-  getCities()
+  cityApi.getAll()
     .then(cities => {
       res.json(cities);
     })
@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  addCity(req.body)
+  cityApi.add(req.body)
     .then((data) => {
       res.send(data);
     })
@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  updateCity(req.params.id, req.body)
+  cityApi.updateOne(req.params.id, req.body)
     .then(data => {
       res.json(data);
     })
@@ -34,7 +34,7 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  deleteCity(req.params.id)
+  cityApi.deleteOne(req.params.id)
     .then(data => {
       res.json(data);
     })

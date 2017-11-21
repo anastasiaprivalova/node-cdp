@@ -1,10 +1,10 @@
 import express from 'express';
-import { getProducts, addProduct, getProductById, getProductReviews, updateProduct, deleteProduct } from './../db';
+import { productApi } from './../db';
 
 let router = express.Router();
 
 router.get('/', (req, res) => {
-  getProducts()
+  productApi.getAll()
   .then(products => {
     res.json(products);
   })
@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  addProduct(req.body)
+  productApi.add(req.body)
   .then((data) => {
     res.send(data);
   })
@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  getProductById(req.params.id)
+  productApi.getOneById(req.params.id)
   .then(product => {
     res.json(product);
   })
@@ -34,7 +34,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  updateProduct(req.params.id, req.body)
+  productApi.updateOne(req.params.id, req.body)
   .then(data => {
     res.json(data);
   })
@@ -44,7 +44,7 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  deleteProduct(req.params.id)
+  productApi.deleteOne(req.params.id)
   .then(data => {
     res.json(data);
   })
@@ -54,7 +54,7 @@ router.delete('/:id', (req, res) => {
 });
 
 router.get('/:id/reviews', (req, res) => {
-  getProductReviews(req.params.id)
+  productApi.getProductReviews(req.params.id)
   .then(reviews => {
     res.json(reviews);
   })

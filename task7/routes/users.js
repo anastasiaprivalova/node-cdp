@@ -1,10 +1,10 @@
 import express from 'express';
-import { getUsers, addUser, getUserById, updateUser, deleteUser } from './../db';
+import { userApi } from './../db';
 
 let router = express.Router();
 
 router.get('/', (req, res) => {
-  getUsers()
+  userApi.getAll()
   .then(users => {
     res.json(users);
   })
@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  getUserById(req.params.id)
+  userApi.getOneById(req.params.id)
     .then(user => {
       res.json(user);
     })
@@ -24,7 +24,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  addUser(req.body)
+  userApi.add(req.body)
     .then((data) => {
       res.send(data);
     })
@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  updateUser(req.params.id, req.body)
+  userApi.updateOne(req.params.id, req.body)
     .then(data => {
       res.json(data);
     })
@@ -44,7 +44,7 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  deleteUser(req.params.id)
+  userApi.deleteOne(req.params.id)
     .then(data => {
       res.json(data);
     })
