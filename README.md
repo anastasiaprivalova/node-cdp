@@ -31,3 +31,7 @@ To check code style with ESLint use
 ```
 npm run lint
 ```
+To import data to e.g. test db from e.g products.json use
+```
+mongoimport --db test --collection products --drop --file task7/data/products.json --jsonArray
+```

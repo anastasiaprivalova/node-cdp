@@ -2,7 +2,7 @@ import express from 'express';
 const app = express();
 import productsRouter from './routes/products';
 import usersRouter from './routes/users';
-import { sequelize } from './db';
+import { sequelize } from './db/connection';
 
 app.use(express.json());
 

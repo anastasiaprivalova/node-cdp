@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUsers } from './../db';
+import { getUsers } from './../db/api/user';
 
 let router = express.Router();
 

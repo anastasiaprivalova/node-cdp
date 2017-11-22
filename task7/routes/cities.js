@@ -1,5 +1,5 @@
 import express from 'express';
-import { cityApi } from './../db';
+import { cityApi } from './../api';
 
 let router = express.Router();
 

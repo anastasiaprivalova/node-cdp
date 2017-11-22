@@ -3,11 +3,11 @@ const app = express();
 import productsRouter from './routes/products';
 import usersRouter from './routes/users';
 import citiesRouter from './routes/cities';
-import { mongooseConnect } from './db';
+import { connection } from './db';
 
 app.use(express.json());
 
-mongooseConnect().then((db) => {
+connection.then((db) => {
   console.log('Connected to db');
 });
 

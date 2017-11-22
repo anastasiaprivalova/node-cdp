@@ -1,5 +1,6 @@
 import express from 'express';
-import { getProducts, addProduct, getProductById, getProductReviews } from './../db';
+import { getProducts, addProduct, getProductById } from './../db/api/product';
+import { getProductReviews } from './../db/api/review';
 
 let router = express.Router();
 
