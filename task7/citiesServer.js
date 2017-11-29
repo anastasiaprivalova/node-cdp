@@ -12,15 +12,17 @@ import MongoClient from 'mongodb';
         console.log(err);
       } else {
         console.log('Connected correctly to server');
-        db.collection('cities').find({}).toArray((err, cities) => {
-          if (err) {
-            console.log(err);
-          } else {
-            const randomIndex = Math.round(Math.random() * (cities.length - 1));
-            res.json(cities[randomIndex]);
+        db.collection('cities').aggregate(
+          { $sample: { size: 1 } },
+          (err, cities) => {
+            if (err) {
+              console.log(err);
+            } else {
+              res.json(cities[0]);
+            }
+            db.close();
           }
-          db.close();
-        });
+        );
       }
     });
   });
